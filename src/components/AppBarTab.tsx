@@ -4,7 +4,8 @@ import { Pressable, StyleSheet, View, Text } from 'react-native'
 const AppBarTab = () => {
    const styles = StyleSheet.create({
       container: {
-         paddingTop: 100,
+         paddingTop: 50,
+         paddingLeft: 15
       },
       text: {
          color: '#e1e4e8',

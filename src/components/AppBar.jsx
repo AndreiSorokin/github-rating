@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
     backgroundColor: "#24292e",
-    height: "150px",
+    height: "100px",
     opacity: 0.8,
   },
 });
