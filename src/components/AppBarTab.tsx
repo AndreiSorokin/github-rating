@@ -1,5 +1,5 @@
 import React from 'react'
-import { Pressable, StyleSheet, View, Text, ScrollView, SafeAreaView } from 'react-native'
+import { Pressable, StyleSheet, View, Text, ScrollView, SafeAreaView, Platform } from 'react-native'
 import { Link } from 'react-router-native';
 
 const AppBarTab = () => {
@@ -15,6 +15,11 @@ const AppBarTab = () => {
          fontSize: 24,
          fontWeight: 'bold',
          paddingHorizontal: 15,
+         fontFamily: Platform.select({
+            ios: 'Arial',
+            android: 'Roboto',
+            default: 'System'
+         })
       }
    });
    return (

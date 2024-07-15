@@ -20,7 +20,8 @@
     "react-native": "0.73.6",
     "react-native-web": "~0.19.6",
     "react-router-native": "^6.24.1",
-    "typescript": "~5.3.3"
+    "typescript": "~5.3.3",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

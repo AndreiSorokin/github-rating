@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Platform } from 'react-native';
 
 const RepositoryItemHeader = ({ item }) => {
    const styles = StyleSheet.create({
@@ -19,10 +19,20 @@ const RepositoryItemHeader = ({ item }) => {
       },
       fullName: {
          fontWeight: 'bold',
+         fontFamily: Platform.select({
+            ios: 'Arial',
+            android: 'Roboto',
+            default: 'System'
+         })
       },
       description: {
          color: '#666',
          marginTop: 5,
+         fontFamily: Platform.select({
+            ios: 'Arial',
+            android: 'Roboto',
+            default: 'System'
+         })
       },
       lang: {
          fontSize: 18,
@@ -33,6 +43,11 @@ const RepositoryItemHeader = ({ item }) => {
          borderRadius: 5,
          color: 'white',
          marginTop: 5,
+         fontFamily: Platform.select({
+            ios: 'Arial',
+            android: 'Roboto',
+            default: 'System'
+         })
       }
    })
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Platform } from 'react-native';
 
 
 const RepositoryItemBody = ({ item }) => {
@@ -9,7 +9,14 @@ const RepositoryItemBody = ({ item }) => {
          flexDirection: 'row',
          justifyContent:'space-around',
          marginVertical: 10,
-      }
+      },
+      text: {
+         fontFamily: Platform.select({
+            ios: 'Arial',
+            android: 'Roboto',
+            default: 'System'
+         })
+      },
    })
 
    const isLarge = (number: number) => {
@@ -18,10 +25,10 @@ const RepositoryItemBody = ({ item }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Stars: {isLarge(item.stargazersCount)}</Text>
-      <Text>Forks: {isLarge(item.forksCount)}</Text>
-      <Text>Rating: {isLarge(item.ratingAverage)}</Text>
-      <Text>Reviews: {isLarge(item.reviewCount)}</Text>
+      <Text style={styles.text}>Stars: {isLarge(item.stargazersCount)}</Text>
+      <Text style={styles.text}>Forks: {isLarge(item.forksCount)}</Text>
+      <Text style={styles.text}>Rating: {isLarge(item.ratingAverage)}</Text>
+      <Text style={styles.text}>Reviews: {isLarge(item.reviewCount)}</Text>
     </View>
   )
 }
