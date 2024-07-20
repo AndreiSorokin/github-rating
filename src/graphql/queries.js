@@ -10,7 +10,7 @@ export const GET_REPOSITORIES = gql`
                ownerAvatarUrl
                fullName
                description
-               lang
+               language
                forksCount
                stargazersCount
                ratingAverage
@@ -22,6 +22,18 @@ export const GET_REPOSITORIES = gql`
             hasPreviousPage
             startCursor
             endCursor
+         }
+      }
+   }
+`;
+
+export const GET_USERS = gql`
+   {
+      users {
+         edges {
+            node {
+               username
+            }
          }
       }
    }
