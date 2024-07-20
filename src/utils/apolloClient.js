@@ -3,7 +3,7 @@ import Constants from 'expo-constants';
 
 const createApolloClient = () => {
    return new ApolloClient({
-      uri: `${Constants.expoConfig.extra.env}`,
+      uri: `${Constants.expoConfig.extra.apolloUri}`,
       cache: new InMemoryCache()
    })
 }
