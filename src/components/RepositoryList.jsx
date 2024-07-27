@@ -15,11 +15,14 @@ const ItemSeparator = () => <View style={styles.separator} />;
 
 const RepositoryList = () => {
   const { repositories } = useRepositories();
-  const { data, error, loading } = useQuery(GET_REPOSITORIES);
+  const { error, loading } = useQuery(GET_REPOSITORIES);
 
   if (loading) {
     return <Text>Loading...</Text>;
   }
+
+  if (error) return <Text>Error: {error.message}</Text>;
+
 
   console.log(repositories)
 
@@ -28,7 +31,7 @@ const RepositoryList = () => {
     : [];
 
    const renderItem = ({ item }) => <RepositoryItem item={item} />
-   
+  
    return (
       <FlatList
          data={repositoryNodes}

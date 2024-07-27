@@ -1,8 +1,11 @@
 import React from 'react'
 import { Pressable, StyleSheet, View, Text, ScrollView, SafeAreaView, Platform } from 'react-native'
 import { Link } from 'react-router-native';
+import { useQuery } from '@apollo/client';
+import { USER_LOGIN } from '../graphql/mutations';
 
 const AppBarTab = () => {
+   // const data = useQuery(USER_LOGIN);
    const styles = StyleSheet.create({
       container: {
          paddingTop: 50,
@@ -22,6 +25,7 @@ const AppBarTab = () => {
          })
       }
    });
+
    return (
       <SafeAreaView>
          <ScrollView horizontal>
@@ -32,7 +36,7 @@ const AppBarTab = () => {
                   </Link>
                </Pressable>
                <Pressable>
-                  <Link to="signin">
+                  <Link to="/signin">
                      <Text style={styles.text}>Sign in</Text>
                   </Link>
                </Pressable>

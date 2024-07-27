@@ -13,6 +13,7 @@
     "@apollo/client": "^3.10.8",
     "@expo/metro-config": "^0.17.4",
     "@expo/metro-runtime": "~3.1.1",
+    "@react-native-async-storage/async-storage": "1.23.1",
     "@types/react": "~18.2.79",
     "dotenv": "^16.4.5",
     "expo": "^51.0.0",
@@ -23,10 +24,10 @@
     "react-dom": "18.2.0",
     "react-native": "0.73.6",
     "react-native-web": "~0.19.6",
+    "react-router-dom": "^6.25.1",
     "react-router-native": "^6.24.1",
     "typescript": "~5.3.3",
-    "yup": "^1.4.0",
-    "@react-native-async-storage/async-storage": "1.23.1"
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
