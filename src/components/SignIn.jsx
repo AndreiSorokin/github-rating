@@ -1,6 +1,6 @@
 import { Pressable, Text, TextInput, View, StyleSheet, Platform } from "react-native";
 import { useNavigate } from 'react-router-native';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { useFormik } from 'formik';
 import * as yup from 'yup';

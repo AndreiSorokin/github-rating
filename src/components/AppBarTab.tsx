@@ -2,10 +2,17 @@ import React from 'react'
 import { Pressable, StyleSheet, View, Text, ScrollView, SafeAreaView, Platform } from 'react-native'
 import { Link } from 'react-router-native';
 import { useQuery } from '@apollo/client';
-import { USER_LOGIN } from '../graphql/mutations';
+import { useApolloClient } from '@apollo/client';
+
+import { GET_USER } from '../graphql/queries';
+import useAuthStorage from '../hooks/useAuthStorage';
 
 const AppBarTab = () => {
-   // const data = useQuery(USER_LOGIN);
+   const userData = useQuery(GET_USER);
+   const user = userData?.data?.me
+   const authStorage = useAuthStorage();
+   const apolloClient = useApolloClient();
+
    const styles = StyleSheet.create({
       container: {
          paddingTop: 50,
@@ -26,6 +33,11 @@ const AppBarTab = () => {
       }
    });
 
+   const signOut = async() => {
+      await authStorage.removeAccessToken();
+      await apolloClient.resetStore();
+   }
+
    return (
       <SafeAreaView>
          <ScrollView horizontal>
@@ -36,8 +48,11 @@ const AppBarTab = () => {
                   </Link>
                </Pressable>
                <Pressable>
-                  <Link to="/signin">
-                     <Text style={styles.text}>Sign in</Text>
+                  <Link onPress={signOut} to="/signin">
+                     {user === null
+                        ? <Text style={styles.text}>Sign in</Text>
+                        : <Text style={styles.text}>Sign out</Text>
+                     }
                   </Link>
                </Pressable>
             </View>
