@@ -1,11 +1,21 @@
 import { gql } from '@apollo/client';
 
 export const GET_USER = gql`
-   {
+   query {
       me 
       {
          id
          username
+      }
+   }
+`
+
+export const GET_SINGLE_REPOSITORY = gql`
+   query ($id: ID!) {
+      repository(id: $id) {
+         id
+         fullName
+         url
       }
    }
 `

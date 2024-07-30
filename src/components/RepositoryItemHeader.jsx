@@ -52,14 +52,14 @@ const RepositoryItemHeader = ({ item }) => {
    })
 
   return (
-    <View style={styles.container}>
-      <Image source={{ uri: item.ownerAvatarUrl }} style={styles.ownerAvatarUrl} />
-      <View style={styles.content}>
-         <Text style={styles.fullName}>{item.fullName}</Text>
-         <Text style={styles.description}>{item.description}</Text>
-         <Text style={styles.lang}>{item.language}</Text>
-      </View>
-    </View>
+   <View style={styles.container}>
+   <Image source={{ uri: item.ownerAvatarUrl }} style={styles.ownerAvatarUrl} />
+   <View style={styles.content}>
+      <Text style={styles.fullName}>{item.fullName}</Text>
+      <Text style={styles.description}>{item.description}</Text>
+      <Text style={styles.lang}>{item.language}</Text>
+   </View>
+   </View>
   )
 }
 
