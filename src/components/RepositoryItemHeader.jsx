@@ -63,4 +63,4 @@ const RepositoryItemHeader = ({ item }) => {
   )
 }
 
-export default RepositoryItemHeader
+export default RepositoryItemHeader;

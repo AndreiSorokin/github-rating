@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
-import RepositoryListContainer from '../components/RepositoryListContainer';
+import RepositoryListContainer from '../../components/RepositoryListContainer';
 
 describe('RepositoryList', () => {
   describe('RepositoryListContainer', () => {
@@ -49,7 +48,7 @@ describe('RepositoryList', () => {
         ],
       };
 
-      render(<RepositoryListContainer repositories={repositories} />);
+      render(<RepositoryListContainer repositories={repositories} />)
 
       const repositoryItems = screen.getAllByTestId('repositoryItem');
       const [firstRepositoryItem, secondRepositoryItem] = repositoryItems;

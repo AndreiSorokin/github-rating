@@ -15,11 +15,9 @@
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
     },
+    "testEnvironment": "jsdom",
     "transformIgnorePatterns": [
       "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg|react-router-native)"
-    ],
-    "setupFilesAfterEnv": [
-      "<rootDir>/setupTests.js"
     ]
   },
   "dependencies": {
@@ -27,7 +25,6 @@
     "@expo/metro-config": "^0.17.4",
     "@expo/metro-runtime": "~3.1.1",
     "@react-native-async-storage/async-storage": "1.23.1",
-    "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
     "@types/react": "~18.2.79",
     "dotenv": "^16.4.5",
@@ -46,14 +43,17 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@babel/eslint-parser": "^7.25.0",
+    "@babel/eslint-parser": "^7.25.1",
+    "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/jest-native": "^5.4.3",
     "@testing-library/react-native": "^12.5.2",
     "@types/react-native": "^0.73.0",
     "babel-eslint": "^10.1.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
+    "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jest": "^28.6.0",
+    "eslint-plugin-jsx-a11y": "^6.9.0",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-native": "^4.1.0",
