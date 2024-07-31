@@ -5,7 +5,7 @@
        "version": "detect"
      }
    },
-   "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:jest/recommended"],
+   "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:jest/recommended", "plugin:react-native/all"],
    "parser": "@babel/eslint-parser",
    "parserOptions": {
     "requireConfigFile": false,
@@ -16,7 +16,10 @@
     }
   },
    "env": {
-     "react-native/react-native": true
+      "react-native/react-native": true,
+      "browser": true,
+      "node": true,
+      "es6": true
    },
    "rules": {
      "react/prop-types": "off",
