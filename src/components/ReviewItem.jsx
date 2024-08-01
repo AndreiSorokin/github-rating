@@ -26,10 +26,17 @@ const ReviewItem = ({ review }) => {
       ratingContainer: {
          marginRight: 10,
          alignItems: "center",
+         justifyContent: "center",
+         borderColor: "#0366d6",
+         borderWidth: 1,
+         width: 50,
+         height: 50,
+         borderRadius: 25
       },
       rating: {
          fontSize: 20,
          fontWeight: "bold",
+         color: "#0366d6",
       },
       infoContainer: {
          flex: 1,

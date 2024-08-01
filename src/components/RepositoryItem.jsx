@@ -5,11 +5,11 @@ import RepositoryItemBody from './RepositoryItemBody';
 import { Link } from 'react-router-native';
 
 const RepositoryItem = ({ item }) => {
-   const styles = StyleSheet.create({
-      container: {
-         backgroundColor: 'white',
-      },
-   });
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: 'white',
+    },
+  });
 
   return (
     <Link to={`/${item.id}`}>

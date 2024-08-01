@@ -9,38 +9,42 @@ import ReviewItem from './ReviewItem';
 const SingleRepository = () => {
   const { id } = useParams();
   const { data: repositoriesData, loading: repositoriesLoading, error: repositoriesError } = useQuery(GET_REPOSITORIES);
-  const { data, loading, error } = useQuery(GET_SINGLE_REPOSITORY, {
+  const { data: singleRepositoryData, loading: singleRepositoryLoading, error: singleRepositoryError } = useQuery(GET_SINGLE_REPOSITORY, {
     variables: { id },
   });
   const { data: reviewData, loading: reviewLoading, error: reviewError } = useQuery(GET_REVIEWS, {
     variables: { id },
   });
 
-  if (repositoriesLoading || loading || reviewLoading) {
+  if (repositoriesLoading || singleRepositoryLoading || reviewLoading) {
     return <Text>Loading...</Text>;
   }
 
-  if (repositoriesError || error || reviewError) {
-    return <Text>Error: {repositoriesError?.message || error.message}</Text>;
+  if (repositoriesError || singleRepositoryError || reviewError) {
+    return <Text>Error: {repositoriesError?.message || singleRepositoryError?.message || reviewError.message}</Text>;
   }
 
   const repository = repositoriesData?.repositories?.edges?.find(repo => repo.node.id === id)?.node;
+  const singleRepository = singleRepositoryData?.repository;
 
-  if (!repository) {
+  if (!repository || !singleRepository) {
     return <Text>Repository not found</Text>;
   }
 
-  console.log('repositoriesData', repository);
+  const mergedRepository = {
+    ...repository,
+    ...singleRepository,
+  };
+
 
   const reviews = reviewData?.repository?.reviews?.edges?.map(edge => edge.node);
-  console.log('REVIEW DATA', reviews);
 
   return (
     <FlatList
       data={reviews}
       renderItem={({ item }) => <ReviewItem review={item} />}
       keyExtractor={({ id }) => id}
-      ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
+      ListHeaderComponent={() => <RepositoryInfo repository={mergedRepository} />}
       ListEmptyComponent={() => <Text>No reviews yet</Text>}
     />
   );
