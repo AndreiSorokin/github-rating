@@ -1,14 +1,10 @@
-import { useQuery } from '@apollo/client';
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { GET_REVIEWS } from '../graphql/queries';
-import { useParams } from 'react-router-native';
 
 const ReviewItem = ({ review }) => {
-   const { id } = useParams();
-   const { data, loading, error } = useQuery(GET_REVIEWS, {
-      variables: { id },
-   });
+   if (!review) {
+      return;
+   }
 
    const styles = StyleSheet.create({
       container: {
@@ -43,34 +39,17 @@ const ReviewItem = ({ review }) => {
       }
    });
 
-   console.log("Query Data: ", data);
-
-   if (loading) return <Text>Loading...</Text>;
-   if (error) {
-      console.error("GraphQL Error: ", error);
-      return <Text>Error: {error.message}</Text>;
-   }
-
-   const edges = data?.repository?.reviews?.edges || [];
-   const isDefined = edges.length > 0;
-
    return (
-      isDefined ? (
-         edges.map(({ node: r }) => (
-            <View style={styles.container} key={r.id}>
-               <View style={styles.ratingContainer}>
-                  <Text style={styles.rating}>{r.rating}</Text>
-               </View>
-               <View style={styles.infoContainer}>
-                  <Text style={styles.text}>{r.user.username}</Text>
-                  <Text style={styles.text}>{new Date(r.createdAt).toLocaleDateString()}</Text>
-                  <Text style={styles.text}>{r.text}</Text>
-               </View>
-            </View>
-         ))
-      ) : (
-         <Text style={styles.container}>No reviews yet</Text>
-      )
+      <View style={styles.container}>
+         <View style={styles.ratingContainer}>
+            <Text style={styles.rating}>{review.rating}</Text>
+         </View>
+         <View style={styles.infoContainer}>
+            <Text style={styles.text}>{review.user.username}</Text>
+            <Text style={styles.text}>{new Date(review.createdAt).toLocaleDateString()}</Text>
+            <Text style={styles.text}>{review.text}</Text>
+         </View>
+      </View>
    );
 };
 
