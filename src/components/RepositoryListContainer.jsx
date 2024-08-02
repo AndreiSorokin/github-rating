@@ -17,7 +17,7 @@ const RepositoryListContainer = ({ repositories }) => {
       : [];
 
    const renderItem = ({ item }) => <RepositoryItem item={item} />
-
+   console.log(repositoryNodes)
    return (
       <FlatList
          data={repositoryNodes}

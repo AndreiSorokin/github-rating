@@ -27,7 +27,6 @@ const Main = () => {
         <Route path="/signin" element={<SignIn/>}/>
         <Route path="/:id" element={<SingleRepository/>}/>
         <Route path="*" element={<Navigate to="/" replace/>}/>
-        
       </Routes>
     </View>
   );

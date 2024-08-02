@@ -13,7 +13,7 @@ const SignIn = () => {
       try {
         const result = await signIn({ username, password });
         if (result && result.data) {
-          navigate('/repositories');
+          navigate('/');
         } else {
           setErrors({ submit: 'Invalid username or password' });
         }

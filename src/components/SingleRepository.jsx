@@ -11,9 +11,11 @@ const SingleRepository = () => {
   const { data: repositoriesData, loading: repositoriesLoading, error: repositoriesError } = useQuery(GET_REPOSITORIES);
   const { data: singleRepositoryData, loading: singleRepositoryLoading, error: singleRepositoryError } = useQuery(GET_SINGLE_REPOSITORY, {
     variables: { id },
+    fetchPolicy: 'cache-and-network',
   });
   const { data: reviewData, loading: reviewLoading, error: reviewError } = useQuery(GET_REVIEWS, {
     variables: { id },
+    fetchPolicy: 'cache-and-network',
   });
 
   if (repositoriesLoading || singleRepositoryLoading || reviewLoading) {
@@ -35,7 +37,6 @@ const SingleRepository = () => {
     ...repository,
     ...singleRepository,
   };
-
 
   const reviews = reviewData?.repository?.reviews?.edges?.map(edge => edge.node);
 
