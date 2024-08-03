@@ -4,7 +4,10 @@ import { setContext } from '@apollo/client/link/context';
 
 const { apolloUri } = Constants.expoConfig.extra;
 const httpLink = createHttpLink({
-   uri: apolloUri
+   uri: apolloUri,
+   headers: {
+      'Content-Type': 'application/json'
+    }
 })
 
 const createApolloClient = (authStorage) => {
