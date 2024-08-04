@@ -4,11 +4,12 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useMutation } from '@apollo/client';
 import { CREATE_REVIEW } from '../graphql/mutations';
+import { useNavigate } from 'react-router-native';
 
 const validationSchema = yup.object().shape({
-   username: yup
+   ownerName: yup
       .string()
-      .required('Username is required'),
+      .required('Owner name is required'),
    repositoryName: yup
       .string()
       .required('Repository name is required'),
@@ -17,7 +18,7 @@ const validationSchema = yup.object().shape({
       .min(0, 'Rating must be between 0 and 100')
       .max(100, 'Rating must be between 0 and 100')
       .required('Rating is required'),
-   review: yup
+   text: yup
       .string()
 })
 
@@ -78,20 +79,22 @@ const CreateReview = () => {
    })
 
    const [createReview, { data, loading, error }] = useMutation(CREATE_REVIEW)
+   const navigate = useNavigate()
 
    const onSubmit = async () => {
       try {
          const result = await createReview({
             variables: {
                review: {
-                  username: formik.values.username,
+                  ownerName: formik.values.ownerName,
                   repositoryName: formik.values.repositoryName,
-                  rating: formik.values.rating,
-                  review: formik.values.review
+                  rating: parseInt(formik.values.rating, 10),
+                  text: formik.values.text
                }
             }
          })
          console.log('RESULT: ', result)
+         navigate(`/${result.data.createReview.repository.id}`)
       } catch (error) {
          console.error('Error creating review:', error);
       }
@@ -99,39 +102,39 @@ const CreateReview = () => {
 
    const formik = useFormik({
       initialValues: {
-         username: '',
+         ownerName: '',
          repositoryName: '',
          rating: '',
-         review: ''
+         text: ''
       },
       validationSchema,
       onSubmit
    })
   return (
     <View style={styles.container}>
-      {formik.touched.username && formik.errors.username ? (
+      {formik.touched.ownerName && formik.errors.ownerName ? (
          <View>
             <TextInput
                style={styles.inputs}
                placeholder='repository owner name'
-               onChangeText={formik.handleChange('username')}
-               value={formik.values.username}
+               onChangeText={formik.handleChange('ownerName')}
+               value={formik.values.ownerName}
             />
-            <Text style={styles.errorMessage}> {formik.errors.username} </Text>
+            <Text style={styles.errorMessage}> {formik.errors.ownerName} </Text>
          </View>
       ) : (
          <TextInput
             style={styles.inputs}
-            placeholder='repository name'
-            onChangeText={formik.handleChange('username')}
-            value={formik.values.username}
+            placeholder='repository owner name'
+            onChangeText={formik.handleChange('ownerName')}
+            value={formik.values.ownerName}
          />
       )}
       {formik.touched.repositoryName && formik.errors.repositoryName ? (
          <View>
             <TextInput
                style={styles.inputs}
-               placeholder='repositoryName'
+               placeholder='repository name'
                onChangeText={formik.handleChange('repositoryName')}
                value={formik.values.repositoryName}
             />
@@ -140,7 +143,7 @@ const CreateReview = () => {
       ) : (
          <TextInput
             style={styles.inputs}
-            placeholder='repositoryName'
+            placeholder='repository name'
             onChangeText={formik.handleChange('repositoryName')}
             value={formik.values.repositoryName}
          />
@@ -152,6 +155,7 @@ const CreateReview = () => {
                placeholder='rating'
                onChangeText={formik.handleChange('rating')}
                value={formik.values.rating}
+               keyboardType='numeric'
             />
             <Text style={styles.errorMessage}> {formik.errors.rating} </Text>
          </View>
@@ -161,24 +165,25 @@ const CreateReview = () => {
             placeholder='rating'
             onChangeText={formik.handleChange('rating')}
             value={formik.values.rating}
+            keyboardType='numeric'
          />
       )}
-      {formik.touched.review && formik.errors.review ? (
+      {formik.touched.text && formik.errors.text ? (
          <View>
             <TextInput
                style={styles.inputs}
                placeholder='review'
-               onChangeText={formik.handleChange('review')}
-               value={formik.values.review}
+               onChangeText={formik.handleChange('text')}
+               value={formik.values.text}
             />
-            <Text style={styles.errorMessage}> {formik.errors.review} </Text>
+            <Text style={styles.errorMessage}> {formik.errors.text} </Text>
          </View>
       ) : (
          <TextInput
             style={styles.inputs}
             placeholder='review'
-            onChangeText={formik.handleChange('review')}
-            value={formik.values.review}
+            onChangeText={formik.handleChange('text')}
+            value={formik.values.text}
          />
       )}
       {formik.errors.submit && (
