@@ -60,6 +60,13 @@ const AppBarTab = () => {
                      }
                   </Link>
                </Pressable>
+               {user === null && (
+                  <Pressable>
+                     <Link to="/signup">
+                        <Text style={styles.text}>Sign up</Text>
+                     </Link>
+                  </Pressable>
+               )}
             </View>
          </ScrollView>
       </SafeAreaView>

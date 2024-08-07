@@ -93,7 +93,6 @@ const CreateReview = () => {
                }
             }
          })
-         console.log('RESULT: ', result)
          navigate(`/${result.data.createReview.repository.id}`)
       } catch (error) {
          console.error('Error creating review:', error);

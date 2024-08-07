@@ -1,12 +1,25 @@
 import { gql } from '@apollo/client';
 
-// export const CREATE_USER = gql`
-//    mutation CreateUser($user: CreateUserInput!) {
-//       createUser(user: $user) {
-
-//       }
-//    }
-// `
+export const CREATE_USER = gql`
+   mutation CreateUser($user: CreateUserInput!) {
+      createUser(user: $user) {
+         createdAt
+         id
+         reviewCount
+         reviews(first: 10) {
+            edges {
+               node {
+                  id
+                  text
+                  rating
+                  createdAt
+               }
+            }
+         }
+         username
+      }
+   }
+`
 
 export const CREATE_REVIEW = gql`
    mutation CreateReview($review: CreateReviewInput!) {
