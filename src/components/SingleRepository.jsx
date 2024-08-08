@@ -8,19 +8,15 @@ import ReviewItem from './ReviewItem';
 
 const SingleRepository = () => {
   const { id } = useParams();
-  const { data: repositoriesData, loading: repositoriesLoading, error: repositoriesError, refetch: refetchRepositories } = useQuery(GET_REPOSITORIES);
-  const { data: singleRepositoryData, loading: singleRepositoryLoading, error: singleRepositoryError, refetch: refetchSingleRepository } = useQuery(GET_SINGLE_REPOSITORY, {
+  const { data: repositoriesData, loading: repositoriesLoading, error: repositoriesError } = useQuery(GET_REPOSITORIES);
+  const { data: singleRepositoryData, loading: singleRepositoryLoading, error: singleRepositoryError } = useQuery(GET_SINGLE_REPOSITORY, {
     variables: { id },
     fetchPolicy: 'cache-and-network',
   });
-  const { data: reviewData, loading: reviewLoading, error: reviewError, refetch: refetchReviews } = useQuery(GET_REVIEWS, {
+  const { data: reviewData, loading: reviewLoading, error: reviewError } = useQuery(GET_REVIEWS, {
     variables: { id },
     fetchPolicy: 'cache-and-network',
   });
-
-  console.log("REPOSITORIES DATA: ", repositoriesData);
-console.log("SINGLE REPOSITORY DATA: ", singleRepositoryData);
-console.log("REVIEW DATA: ", reviewData);
 
   if (repositoriesLoading || singleRepositoryLoading || reviewLoading) {
     return <Text>Loading...</Text>;

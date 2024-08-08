@@ -44,30 +44,23 @@ export const GET_SINGLE_REPOSITORY = gql`
 `
 
 export const GET_REPOSITORIES = gql`
-   query {
-      repositories {
-         totalCount
-         edges {
-            node {
-               id
-               ownerAvatarUrl
-               fullName
-               description
-               language
-               forksCount
-               stargazersCount
-               ratingAverage
-               reviewCount
-            }
-         }
-            pageInfo {
-            hasNextPage
-            hasPreviousPage
-            startCursor
-            endCursor
-         }
+  query GetRepositories($orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection) {
+    repositories(orderBy: $orderBy, orderDirection: $orderDirection) {
+      edges {
+        node {
+          id
+          fullName
+          description
+          language
+          forksCount
+          stargazersCount
+          ratingAverage
+          reviewCount
+          ownerAvatarUrl
+        }
       }
-   }
+    }
+  }
 `;
 
 export const GET_USERS = gql`

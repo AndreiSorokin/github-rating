@@ -1,5 +1,7 @@
 import { FlatList, View, StyleSheet } from "react-native";
 import RepositoryItem from './RepositoryItem';
+import React from 'react'
+import OrderSelector from './OrderSelector';
 
 const styles = StyleSheet.create({
    separator: {
@@ -9,9 +11,7 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-import React from 'react'
-
-const RepositoryListContainer = ({ repositories }) => {
+const RepositoryListContainer = ({ repositories, orderBy, orderDirection, setOrderBy, setOrderDirection }) => {
    const repositoryNodes = repositories
       ? repositories.edges.map(edge => edge.node)
       : [];
@@ -24,6 +24,14 @@ const RepositoryListContainer = ({ repositories }) => {
          ItemSeparatorComponent={ItemSeparator}
          renderItem = {renderItem}
          keyExtractor={item => item.id}
+         ListHeaderComponent={
+            <OrderSelector
+               orderBy={orderBy}
+               orderDirection={orderDirection}
+               setOrderBy={setOrderBy}
+               setOrderDirection={setOrderDirection}
+            />
+         }
       />
    )
 }
