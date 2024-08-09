@@ -7,7 +7,9 @@ import RepositoryListContainer from './RepositoryListContainer';
 const RepositoryList = () => {
   const [orderBy, setOrderBy] = useState('CREATED_AT');
   const [orderDirection, setOrderDirection] = useState('DESC');
-  const { repositories, loading, error  } = useRepositories(orderBy, orderDirection);
+  const [searchKeyword, setSearchKeyword] = useState('');
+
+  const { repositories, loading, error } = useRepositories(orderBy, orderDirection, searchKeyword);
 
   if (loading) return <View><Text>Loading...</Text></View>;
   if (error) return <View><Text>Error: {error.message}</Text></View>;
@@ -19,6 +21,8 @@ const RepositoryList = () => {
       orderDirection={orderDirection}
       setOrderBy={setOrderBy}
       setOrderDirection={setOrderDirection}
+      searchKeyword={searchKeyword}
+      setSearchKeyword={setSearchKeyword}
     />
   );
 };
