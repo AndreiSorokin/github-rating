@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import SearchBar from './SearchBar';
 import OrderSelector from './OrderSelector';
 
-const ListHeader = React.memo(({ searchKeyword, setSearchKeyword, orderBy, orderDirection, setOrderBy, setOrderDirection }) => {
+const ListHeader = ({ searchKeyword, setSearchKeyword, orderBy, orderDirection, setOrderBy, setOrderDirection }) => {
    return (
       <View>
         <SearchBar
@@ -18,6 +18,6 @@ const ListHeader = React.memo(({ searchKeyword, setSearchKeyword, orderBy, order
         />
       </View>
     );
-})
+}
 
 export default ListHeader;

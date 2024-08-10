@@ -1,6 +1,6 @@
 import { FlatList, View, StyleSheet } from "react-native";
 import RepositoryItem from './RepositoryItem';
-import React, { useCallback } from 'react'
+import React from 'react';
 import ListHeader from './ListHeader.jsx';
 
 const styles = StyleSheet.create({
@@ -11,34 +11,37 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-const RepositoryListContainer = ({ repositories, orderBy, orderDirection, setOrderBy, setOrderDirection, searchKeyword, setSearchKeyword  }) => {
-   const repositoryNodes = repositories
-      ? repositories.edges.map(edge => edge.node)
-      : [];
-
-   const renderItem = ({ item }) => <RepositoryItem item={item} />
-
-   const renderHeader = useCallback(() => (
-      ListHeaderComponent=
+class RepositoryListContainer extends React.Component {
+   renderHeader = () => {
+      const { searchKeyword, setSearchKeyword, orderBy, orderDirection, setOrderBy, setOrderDirection } = this.props;
+      return (
          <ListHeader
-         searchKeyword={searchKeyword}
-         setSearchKeyword={setSearchKeyword}
-         orderBy={orderBy}
-         orderDirection={orderDirection}
-         setOrderBy={setOrderBy}
-         setOrderDirection={setOrderDirection}
-      />
-   ), [searchKeyword, setSearchKeyword, orderBy, orderDirection, setOrderBy, setOrderDirection])
+            searchKeyword={searchKeyword}
+            setSearchKeyword={setSearchKeyword}
+            orderBy={orderBy}
+            orderDirection={orderDirection}
+            setOrderBy={setOrderBy}
+            setOrderDirection={setOrderDirection}
+         />
+      );
+   };
 
-   return (
-      <FlatList
-         data={repositoryNodes}
-         ItemSeparatorComponent={ItemSeparator}
-         renderItem = {renderItem}
-         keyExtractor={item => item.id}
-         ListHeaderComponent={renderHeader}
-      />
-   )
+   renderItem = ({ item }) => <RepositoryItem item={item} />;
+
+   render() {
+      const { repositories } = this.props;
+      const repositoryNodes = repositories ? repositories.edges.map(edge => edge.node) : [];
+
+      return (
+         <FlatList
+            data={repositoryNodes}
+            ItemSeparatorComponent={ItemSeparator}
+            renderItem={this.renderItem}
+            keyExtractor={item => item.id}
+            ListHeaderComponent={this.renderHeader}
+         />
+      );
+   }
 }
 
-export default RepositoryListContainer
+export default RepositoryListContainer;
