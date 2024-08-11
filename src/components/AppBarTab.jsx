@@ -52,6 +52,14 @@ const AppBarTab = () => {
                      <Text style={styles.text}>Create a review</Text>
                   </Link>
                </Pressable>
+               {user && (
+                  <Pressable>
+                     <Link to="/reviews">
+                        <Text style={styles.text}>My reviews</Text>
+                     </Link>
+                  </Pressable>
+   
+               )}
                <Pressable>
                   <Link onPress={signOut} to="/signin">
                      {user === null
