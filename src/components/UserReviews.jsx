@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable, Platform } from 'react-native';
 import { GET_USER } from '../graphql/queries';
 
 const UserReviews = () => {
@@ -42,9 +42,34 @@ const UserReviews = () => {
     text: {
       marginBottom: 5,
     },
+    buttonsContainer: {
+      flexDirection: "column",
+      margin: 10
+    },
+    viewButton: {
+      backgroundColor: "#0366d6",
+      padding: 10,
+      borderRadius: 5,
+    },
+    deleteButton: {
+      backgroundColor: "red",
+      padding: 10,
+      borderRadius: 5,
+      marginTop: 5
+    },
+    buttonText: {
+      fontSize: 16,
+      textAlign: "center",
+      color: "white",
+      fontFamily: Platform.select({
+        ios: 'Arial',
+        android: 'Roboto',
+        default: 'System'
+      })
+    }
   });
 
-  const { data, loading } = useQuery(GET_USER, {
+  const { data, loading, refetch } = useQuery(GET_USER, {
     variables: { includeReviews: true },
   });
 
@@ -68,6 +93,14 @@ const UserReviews = () => {
               <Text style={styles.text}>{review.user.username}</Text>
               <Text style={styles.text}>{new Date(review.createdAt).toLocaleDateString()}</Text>
               <Text style={styles.text}>{review.text}</Text>
+            </View>
+            <View style={styles.buttonsContainer}>
+              <Pressable style={styles.viewButton}>
+                <Text style={styles.buttonText}>View repository</Text>
+              </Pressable>
+              <Pressable style={styles.deleteButton}>
+                <Text style={styles.buttonText}>Delete</Text>
+              </Pressable>
             </View>
           </View>
         );
