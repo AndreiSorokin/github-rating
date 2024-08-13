@@ -5,7 +5,6 @@ import * as yup from 'yup';
 import { useMutation } from '@apollo/client';
 import { CREATE_REVIEW } from '../graphql/mutations';
 import { useNavigate } from 'react-router-native';
-
 const validationSchema = yup.object().shape({
    ownerName: yup
       .string()

@@ -1,12 +1,11 @@
+import React from 'react';
 import Constants from 'expo-constants';
 import { StyleSheet, View } from 'react-native';
 import { Route, Routes, Navigate } from'react-router-native';
-import React from 'react';
 
 import RepositoryList from './RepositoryList';
 import AppBar from './AppBar';
 import SignIn from './SignIn';
-import RepositoryInfo from './RepositoryInfo';
 import SingleRepository from './SingleRepository';
 import CreateReview from './CreateReview';
 import SignUp from './SignUp';

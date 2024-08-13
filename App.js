@@ -1,3 +1,4 @@
+import React from 'react';
 import { NativeRouter } from 'react-router-native';
 import { ApolloProvider } from '@apollo/client';
 import Constants from 'expo-constants';

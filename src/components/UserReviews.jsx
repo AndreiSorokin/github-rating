@@ -1,7 +1,12 @@
-import { useQuery } from '@apollo/client';
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, Platform } from 'react-native';
+import { useQuery } from '@apollo/client';
+import { View, Text, StyleSheet, ScrollView, Pressable, Platform, Alert } from 'react-native';
+import { useMutation } from '@apollo/client';
+import { useNavigate } from 'react-router-native';
+
+
 import { GET_USER } from '../graphql/queries';
+import { DELETE_REVIEW } from '../graphql/mutations';
 
 const UserReviews = () => {
   const styles = StyleSheet.create({
@@ -68,18 +73,50 @@ const UserReviews = () => {
       })
     }
   });
+  const navigate = useNavigate();
 
   const { data, loading, refetch } = useQuery(GET_USER, {
     variables: { includeReviews: true },
   });
+  const [deleteReview] = useMutation(DELETE_REVIEW);
 
   console.log(data)
 
-   if (loading) return <Text>Loading...</Text>;
-   if (data.me.reviews.edges.length === 0) {
-      return <Text>No reviews yet</Text>;
-   }
+  if (loading) return <Text>Loading...</Text>;
+  if (data.me.reviews.edges.length === 0) {
+    return <Text>No reviews yet</Text>;
+  }
   data.me.reviews.edges.map(({ node: review }) => console.log(review));
+
+  const handleViewRepository = (repositoryId) => {
+    navigate(`/${repositoryId}`)
+  };
+
+  const handleDeleteReview = async (id) => {
+  Alert.alert(
+    "Delete this review?",
+    "Are you sure you want to delete this review?",
+    [
+      {
+        text: "Cancel",
+        style: "cancel"
+      },
+      {
+        text: "OK",
+        onPress: async () => {
+          try {
+            await deleteReview({
+              variables: { id },
+            });
+            refetch();
+          } catch (error) {
+            console.error('Error deleting review:', error);
+          }
+        }
+      }
+    ]
+  );
+  }
 
   return (
     <ScrollView>
@@ -95,10 +132,10 @@ const UserReviews = () => {
               <Text style={styles.text}>{review.text}</Text>
             </View>
             <View style={styles.buttonsContainer}>
-              <Pressable style={styles.viewButton}>
+              <Pressable onPress={() => handleViewRepository(review.repositoryId)} style={styles.viewButton}>
                 <Text style={styles.buttonText}>View repository</Text>
               </Pressable>
-              <Pressable style={styles.deleteButton}>
+              <Pressable onPress={() => handleDeleteReview(review.id)} style={styles.deleteButton}>
                 <Text style={styles.buttonText}>Delete</Text>
               </Pressable>
             </View>

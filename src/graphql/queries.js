@@ -25,7 +25,7 @@ export const GET_REVIEWS = gql`
 
 export const GET_USER = gql`
    query getCurrentUser($includeReviews: Boolean = false) {
-      me 
+      me
       {
          id
          username
@@ -36,6 +36,7 @@ export const GET_USER = gql`
                   text
                   rating
                   createdAt
+                  repositoryId
                   user {
                      id
                      username

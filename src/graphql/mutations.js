@@ -21,6 +21,18 @@ export const CREATE_USER = gql`
    }
 `
 
+export const USER_LOGIN = gql`
+   mutation Authenticate($credentials: AuthenticateInput!) {
+      authenticate(credentials: $credentials) {
+         accessToken
+         user {
+            id
+            username
+         }
+      }
+   }
+`
+
 export const CREATE_REVIEW = gql`
    mutation CreateReview($review: CreateReviewInput!) {
       createReview(review: $review) {
@@ -43,14 +55,8 @@ export const CREATE_REVIEW = gql`
    }
 `;
 
-export const USER_LOGIN = gql`
-   mutation Authenticate($credentials: AuthenticateInput!) {
-      authenticate(credentials: $credentials) {
-         accessToken
-         user {
-            id
-            username
-         }
-      }
+export const DELETE_REVIEW = gql`
+   mutation DeleteReview($id: ID!) {
+      deleteReview(id: $id)
    }
 `
