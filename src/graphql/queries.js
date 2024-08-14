@@ -1,35 +1,43 @@
 import { gql } from '@apollo/client';
 
 export const GET_REVIEWS = gql`
-   query ($id: ID!) {
-  repository(id: $id) {
-    id
-    fullName
-    reviews {
-      edges {
-        node {
-          id
-          text
-          rating
-          createdAt
-          user {
-            id
-            username
-          }
-        }
+   query ($id: ID!, $after: String) {
+      repository(id: $id) {
+         id
+         fullName
+         reviews(
+            first: 2,
+            after: $after
+         ) {
+            edges {
+               node {
+                  id
+                  text
+                  rating
+                  createdAt
+                  user {
+                     id
+                     username
+                  }
+               }
+               cursor
+            }
+            pageInfo {
+               endCursor
+               startCursor
+               hasNextPage
+            }
+         }
       }
-    }
-  }
 }
 `
 
 export const GET_USER = gql`
-   query getCurrentUser($includeReviews: Boolean = false) {
-      me
-      {
+   query getCurrentUser($includeReviews: Boolean = false, $first: Int, $after: String) {
+      me {
          id
          username
-         reviews @include(if: $includeReviews) {
+         reviews(first: $first, after: $after) @include(if: $includeReviews) {
             edges {
                node {
                   id
@@ -42,8 +50,13 @@ export const GET_USER = gql`
                      username
                   }
                }
+               cursor
             }
-      }
+            pageInfo {
+               endCursor
+               hasNextPage
+            }
+         }
       }
    }
 `
